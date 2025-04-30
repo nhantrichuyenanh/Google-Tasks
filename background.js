@@ -20,7 +20,7 @@ async function updateSidebarPanel(content) {
         case 'tasks':
             panelUrl = `https://tasks.google.com/tasks/?authuser=${authuser}`;
             break;
-        case 'reminders':
+        case 'assistant':
             panelUrl = `https://assistant.google.com/tasks?authuser=${authuser}`;
             break;
         case 'calendar':
