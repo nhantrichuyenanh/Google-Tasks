@@ -1,35 +1,34 @@
 'use strict';
 
-const sidebarContentSelect = document.getElementById('sidebar-content'); // updated selector ID
+const sidebarContentSelect = document.getElementById('sidebar-content');
+const showPageActionCheckbox = document.getElementById('show-page-action');
 
-// save the selected sidebar content to storage
-function saveOptions(content) {
+// save the selected options to storage
+function saveOptions() {
     browser.storage.local.set({
-        sidebarContent: content
+        sidebarContent: sidebarContentSelect.value,
+        showPageAction: showPageActionCheckbox.checked
     });
 }
 
-// update the UI with the saved value
+// update the ui with the saved values
 function updateUI(res) {
-    sidebarContentSelect.value = res.sidebarContent || 'tasks'; // default to tasks if nothing is stored
+    sidebarContentSelect.value = res.sidebarContent || 'tasks';
+    showPageActionCheckbox.checked = res.showPageAction !== false; // default to true if not set
 }
 
 // get the stored options when the options page loads
 function restoreOptions() {
-    browser.storage.local.get("sidebarContent")
+    browser.storage.local.get(['sidebarContent', 'showPageAction'])
         .then(updateUI)
         .catch(error => {
             console.error(`Error: ${error}`);
         });
 }
 
-// handle changes to the dropdown
-function changeHandler() {
-    saveOptions(sidebarContentSelect.value);
-}
-
-// listen for changes to the dropdown
-sidebarContentSelect.addEventListener("change", changeHandler);
+// handle changes to the controls
+sidebarContentSelect.addEventListener('change', saveOptions);
+showPageActionCheckbox.addEventListener('change', saveOptions);
 
 // restore options when the options page loads
-document.addEventListener("DOMContentLoaded", restoreOptions);
+document.addEventListener('DOMContentLoaded', restoreOptions);
