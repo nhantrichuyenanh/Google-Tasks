@@ -25,9 +25,6 @@ async function setSidebarContent() {
         case 'tasks':
             panelUrl = `https://tasks.google.com/tasks/?authuser=${authuser}`;
             break;
-        case 'assistant':
-            panelUrl = `https://assistant.google.com/tasks?authuser=${authuser}`;
-            break;
         case 'calendar':
             panelUrl = `https://calendar.google.com/calendar/u/0/r/tasks?authuser=${authuser}`;
             break;

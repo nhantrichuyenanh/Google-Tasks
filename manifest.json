@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Google Tasks Sidebar",
   "description": "Quickly access and manage your Google Tasks.",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "browser_specific_settings": {
     "gecko": {
       "id": "{6733a00c-d723-417d-abe1-4725aa77410f}",
