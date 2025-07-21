@@ -1,36 +1,59 @@
 'use strict';
 
 let currentSidebarContent = 'tasks'; // default content
-let isSidebarOpen = false; // variable to track sidebar state
+let isSidebarOpen = false;
 
-// function to update the sidebar panel based on selected content
+function generateUrl(content, authuser = '') {
+    const encodedAuthuser = authuser ? encodeURIComponent(authuser) : '';
+
+    switch (content) {
+        case 'tasks':
+            return `https://tasks.google.com/tasks/?authuser=${encodedAuthuser}`;
+        case 'calendar':
+            return `https://calendar.google.com/calendar/u/0/r/tasks?authuser=${encodedAuthuser}`;
+        default:
+            return `https://tasks.google.com/tasks/?authuser=${encodedAuthuser}`;
+    }
+}
+
+// update the sidebar based on selected content
 async function updateSidebarPanel(content) {
     let authuser = '';
     try {
         let res = await browser.storage.local.get('authuser');
         if ('authuser' in res) {
-            authuser = encodeURIComponent(res.authuser);
+            authuser = res.authuser;
         }
     } catch (e) {
         console.error('Error retrieving authuser from storage:', e);
     }
 
-    let panelUrl;
-    switch (content) {
-        case 'tasks':
-            panelUrl = `https://tasks.google.com/tasks/?authuser=${authuser}`;
-            break;
-        case 'calendar':
-            panelUrl = `https://calendar.google.com/calendar/u/0/r/tasks?authuser=${authuser}`;
-            break;
-        default:
-            panelUrl = `https://tasks.google.com/tasks/?authuser=${authuser}`;
-    }
-
+    const panelUrl = generateUrl(content, authuser);
     browser.sidebarAction.setPanel({ panel: panelUrl });
 }
 
-// load stored sidebar content on startup and set initial panel
+// open tasks in a new tab
+async function openInNewTab(active = true) {
+    try {
+        const settings = await browser.storage.local.get(['openNewTab', 'sidebarContent', 'authuser']);
+
+        if (settings.openNewTab === false) {
+            return;
+        }
+
+        const content = settings.sidebarContent || 'tasks';
+        const authuser = settings.authuser || '';
+        const url = generateUrl(content, authuser);
+
+        browser.tabs.create({
+            url: url,
+            active: active
+        });
+    } catch (e) {
+        console.error('Error opening in new tab:', e);
+    }
+}
+
 async function initializeSidebar() {
     const storedContent = await browser.storage.local.get("sidebarContent");
     currentSidebarContent = storedContent.sidebarContent || 'tasks';
@@ -38,7 +61,7 @@ async function initializeSidebar() {
 }
 initializeSidebar();
 
-// listen for changes from the options page
+// listen for changes from the options menu
 browser.storage.onChanged.addListener((changes, areaName) => {
     if (areaName === 'local' && changes.sidebarContent) {
         currentSidebarContent = changes.sidebarContent.newValue;
@@ -46,7 +69,7 @@ browser.storage.onChanged.addListener((changes, areaName) => {
     }
 });
 
-// function to toggle sidebar
+// TODO: somehow rework this func to add Open in sidebar (Ctrl + Alt + G) and Address bar/Toolbar button open in S/N/B in options menu
 function toggleSidebar() {
     if (isSidebarOpen) {
         browser.sidebarAction.close();
@@ -57,20 +80,33 @@ function toggleSidebar() {
     }
 }
 
-// listen for clicks on the page action button
+// address bar button
 browser.pageAction.onClicked.addListener(toggleSidebar);
 
-// listen for clicks on the toolbar button
+// toolbar button
 browser.action.onClicked.addListener(toggleSidebar);
 
-// listen for messages from the sidebar
+// listen for hotkeys
+browser.commands.onCommand.addListener(async (command) => {
+    switch (command) {
+        case 'open_new_tab':
+            await openInNewTab(true);
+            break;
+        case 'open_background_tab':
+            await openInNewTab(false);
+            break;
+        case 'open_sidebar':
+            toggleSidebar();
+            break;
+    }
+});
+
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.sidebarClosed) {
         isSidebarOpen = false;
     }
 });
 
-// function to update page action visibility
 async function updatePageActionVisibility(tabId) {
     try {
         const res = await browser.storage.local.get('showPageAction');
@@ -84,12 +120,10 @@ async function updatePageActionVisibility(tabId) {
     }
 }
 
-// modify the existing tabs.onUpdated listener
 browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     updatePageActionVisibility(tabId);
 });
 
-// listen for changes to the showPageAction setting
 browser.storage.onChanged.addListener((changes, areaName) => {
     if (areaName === 'local') {
         if (changes.sidebarContent) {

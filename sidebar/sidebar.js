@@ -11,7 +11,7 @@ async function setSidebarContent() {
 
     let authuser = '';
     try {
-        // retrieve the stored authuser (pre-set elsewhere)
+        // retrieve the stored authuser
         let res = await browser.storage.local.get('authuser');
         if ('authuser' in res) {
             authuser = encodeURIComponent(res.authuser);
@@ -37,7 +37,6 @@ async function setSidebarContent() {
 
 setSidebarContent();
 
-// notify background script when the sidebar panel is unloaded
 window.addEventListener('unload', () => {
   browser.runtime.sendMessage({ sidebarClosed: true });
 });
