@@ -28,6 +28,12 @@ async function setSidebarContent() {
         case 'calendar':
             panelUrl = `https://calendar.google.com/calendar/u/0/r/tasks?authuser=${authuser}`;
             break;
+        case 'embed':
+            panelUrl = `https://tasks.google.com/embed/?origin=https://mail.google.com&authuser=${authuser}`;
+            break;
+        case 'canvas':
+            panelUrl = `https://mail.google.com/tasks/canvas?authuser=${authuser}`;
+            break;
         default:
             panelUrl = `https://tasks.google.com/tasks/?authuser=${authuser}`;
     }

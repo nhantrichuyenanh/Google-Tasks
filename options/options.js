@@ -1,6 +1,6 @@
 'use strict';
 
-const sidebarContentSelect = document.getElementById('sidebar-content');
+const ggTaskSelection = document.getElementById('gg-task-selection');
 const showPageActionCheckbox = document.getElementById('show-page-action');
 const openNewTabCheckbox = document.getElementById('open-new-tab');
 const openBackgroundTabCheckbox = document.getElementById('open-background-tab');
@@ -8,7 +8,7 @@ const openBackgroundTabCheckbox = document.getElementById('open-background-tab')
 // save the selected options to storage
 function saveOptions() {
     browser.storage.local.set({
-        sidebarContent: sidebarContentSelect.value,
+        sidebarContent: ggTaskSelection.value,
         showPageAction: showPageActionCheckbox.checked,
         openNewTab: openNewTabCheckbox.checked,
         openBackgroundTab: openBackgroundTabCheckbox.checked
@@ -17,7 +17,7 @@ function saveOptions() {
 
 // update the ui with the saved values
 function updateUI(res) {
-    sidebarContentSelect.value = res.sidebarContent || 'tasks';
+    ggTaskSelection.value = res.sidebarContent || 'tasks';
     showPageActionCheckbox.checked = res.showPageAction !== false;
     openNewTabCheckbox.checked = res.openNewTab !== false;
     openBackgroundTabCheckbox.checked = res.openBackgroundTab !== false;
@@ -33,7 +33,7 @@ function restoreOptions() {
 }
 
 // handle changes to the controls
-sidebarContentSelect.addEventListener('change', saveOptions);
+ggTaskSelection.addEventListener('change', saveOptions);
 showPageActionCheckbox.addEventListener('change', saveOptions);
 openNewTabCheckbox.addEventListener('change', saveOptions);
 openBackgroundTabCheckbox.addEventListener('change', saveOptions);

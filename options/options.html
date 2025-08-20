@@ -146,11 +146,12 @@
 
 <body>
     <div class="container">
+        <div class="column-title">Open Google Tasks in:</div>
         <div class="columns">
             <div class="column">
                 <div class="column-title">Sidebar</div>
                 <div class="info">
-                    I can’t add “Open in sidebar (Ctrl + Alt + G)” because it would completely break the hotkey.
+                    I can't add "Open in sidebar" option or it would completely break sidebar functionality.
                 </div>
                 <div class="option-item">
                     <label>
@@ -180,16 +181,13 @@
         </div>
 
         <div class="bottom-section">
-            <div class="section-title">Google Tasks</div>
-            <select id="sidebar-content">
+            <div class="section-title">Open Google Tasks as:</div>
+            <select id="gg-task-selection">
                 <option value="tasks">Tasks</option>
                 <option value="calendar">Calendar</option>
+                <option value="embed">Minimized Tasks</option>
+                <option value="canvas">Calendar + Minimized Tasks</option>
             </select>
-
-            <div class="info">
-                Choose which Google Tasks service to display and configure which keyboard shortcuts to enable or disable
-                for opening it. Your selections are automatically saved.
-            </div>
         </div>
     </div>
     <script src="options.js"></script>

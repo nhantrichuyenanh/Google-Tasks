@@ -11,6 +11,10 @@ function generateUrl(content, authuser = '') {
             return `https://tasks.google.com/tasks/?authuser=${encodedAuthuser}`;
         case 'calendar':
             return `https://calendar.google.com/calendar/u/0/r/tasks?authuser=${encodedAuthuser}`;
+        case 'embed':
+            return `https://tasks.google.com/embed/?origin=https://mail.google.com&authuser=${encodedAuthuser}`;
+        case 'canvas':
+            return `https://mail.google.com/tasks/canvas?authuser=${encodedAuthuser}`;
         default:
             return `https://tasks.google.com/tasks/?authuser=${encodedAuthuser}`;
     }
@@ -69,7 +73,7 @@ browser.storage.onChanged.addListener((changes, areaName) => {
     }
 });
 
-// TODO: somehow rework this func to add Open in sidebar (Ctrl + Alt + G) and Address bar/Toolbar button open in S/N/B in options menu
+// TODO: somehow rework this func to add Open in sidebar without breaking sidebar functionality
 function toggleSidebar() {
     if (isSidebarOpen) {
         browser.sidebarAction.close();
