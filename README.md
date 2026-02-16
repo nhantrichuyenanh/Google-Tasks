@@ -1,6 +1,6 @@
 TODO:
-- Add Open in sidebar (Ctrl + Alt + G)
-- Add Open Google Tasks as for address bar button, toolbar button, and sidebar.
+- [ ] Add Open in sidebar (Ctrl + Alt + G)
+- [ ] Add Open Google Tasks as for address bar button, toolbar button, and sidebar.
 
 ---
 
