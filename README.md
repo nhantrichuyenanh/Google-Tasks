@@ -22,4 +22,4 @@ Open Google Tasks as:
   - `tasks.google.com/u/0/embed/list/~default?origin=https://mail.google.com`
   - `tasks.google.com/u/1/embed/list/~default?origin=https://mail.google.com`
   - ...
--Calendar + Minimized Tasks: `mail.google.com/tasks/canvas`
+- Calendar + Minimized Tasks: `mail.google.com/tasks/canvas`
