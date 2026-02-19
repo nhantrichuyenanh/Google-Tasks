@@ -1,6 +1,9 @@
-TODO:
-- [ ] Add Open in sidebar (Ctrl + Alt + G)
-- [ ] Add Open Google Tasks as for address bar button, toolbar button, and sidebar.
+Features:
+- Open Google Tasks in sidebar (toggle): `Ctrl + Alt + G`
+- Open Google Tasks in a new tab: `Ctrl + Alt + N`
+- Open Google Tasks in the background: `Ctrl + Alt + B`
+- Optional address bar button to toggle sidebar
+- Optional enable/disable switches for sidebar/new-tab/background-tab behavior
 
 ---
 

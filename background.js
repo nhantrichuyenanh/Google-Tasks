@@ -3,6 +3,13 @@
 let currentSidebarContent = 'tasks'; // default content
 let isSidebarOpen = false;
 
+const DEFAULT_SETTINGS = {
+    openSidebar: true,
+    showPageAction: true,
+    openNewTab: true,
+    openBackgroundTab: true
+};
+
 function generateUrl(content, authuser = '') {
     const encodedAuthuser = authuser ? encodeURIComponent(authuser) : '';
 
@@ -39,9 +46,18 @@ async function updateSidebarPanel(content) {
 // open tasks in a new tab
 async function openInNewTab(active = true) {
     try {
-        const settings = await browser.storage.local.get(['openNewTab', 'sidebarContent', 'authuser']);
+        const settings = await browser.storage.local.get([
+            'openNewTab',
+            'openBackgroundTab',
+            'sidebarContent',
+            'authuser'
+        ]);
 
-        if (settings.openNewTab === false) {
+        if (active && settings.openNewTab === false) {
+            return;
+        }
+
+        if (!active && settings.openBackgroundTab === false) {
             return;
         }
 
@@ -84,11 +100,23 @@ function toggleSidebar() {
     }
 }
 
+async function openSidebarIfEnabled() {
+    try {
+        const settings = await browser.storage.local.get(['openSidebar']);
+        if (settings.openSidebar === false) {
+            return;
+        }
+        toggleSidebar();
+    } catch (e) {
+        console.error('Error opening sidebar:', e);
+    }
+}
+
 // address bar button
-browser.pageAction.onClicked.addListener(toggleSidebar);
+browser.pageAction.onClicked.addListener(openSidebarIfEnabled);
 
 // toolbar button
-browser.action.onClicked.addListener(toggleSidebar);
+browser.action.onClicked.addListener(openSidebarIfEnabled);
 
 // listen for hotkeys
 browser.commands.onCommand.addListener(async (command) => {
@@ -100,7 +128,7 @@ browser.commands.onCommand.addListener(async (command) => {
             await openInNewTab(false);
             break;
         case 'open_sidebar':
-            toggleSidebar();
+            await openSidebarIfEnabled();
             break;
     }
 });
@@ -126,6 +154,21 @@ async function updatePageActionVisibility(tabId) {
 
 browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     updatePageActionVisibility(tabId);
+});
+
+browser.runtime.onInstalled.addListener(async () => {
+    const settings = await browser.storage.local.get(Object.keys(DEFAULT_SETTINGS));
+    const missing = {};
+
+    for (const [key, value] of Object.entries(DEFAULT_SETTINGS)) {
+        if (!(key in settings)) {
+            missing[key] = value;
+        }
+    }
+
+    if (Object.keys(missing).length) {
+        await browser.storage.local.set(missing);
+    }
 });
 
 browser.storage.onChanged.addListener((changes, areaName) => {
