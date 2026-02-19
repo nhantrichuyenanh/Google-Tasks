@@ -16,8 +16,3 @@ Firefox add-on to quickly open Google Tasks from the address bar button or keybo
 1. Open `about:debugging#/runtime/this-firefox`.
 2. Click **Load Temporary Add-on...**.
 3. Select the `manifest.json` file from this folder.
-
-## Notes
-
-- Firefox requires `sidebar_action.default_panel` to be a relative extension page.
-  This add-on uses `sidebar.html`, which embeds Google Tasks.

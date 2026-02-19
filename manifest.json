@@ -13,7 +13,7 @@
   },
   "sidebar_action": {
     "default_title": "Google Tasks",
-    "default_panel": "sidebar.html"
+    "default_panel": "https://tasks.google.com/tasks/"
   },
   "page_action": {
     "default_title": "Google Tasks",
