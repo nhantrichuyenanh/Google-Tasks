@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Google Tasks</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 10px;
+        min-width: 220px;
+        font-family: sans-serif;
+      }
+
+      button {
+        display: block;
+        width: 100%;
+        margin: 0 0 8px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background: #f7f7f7;
+        cursor: pointer;
+      }
+
+      button:last-child {
+        margin-bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="open-sidebar" type="button">Open in Sidebar (Ctrl + Alt + G)</button>
+    <button id="open-tab" type="button">Open in new tab (Ctrl + Alt + N)</button>
+    <button id="open-background-tab" type="button">Open in background (Ctrl + Alt + B)</button>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

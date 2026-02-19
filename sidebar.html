@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Google Tasks Sidebar</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: sans-serif;
+        background: #fff;
+      }
+
+      iframe {
+        border: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .fallback {
+        display: none;
+        box-sizing: border-box;
+        padding: 12px;
+      }
+
+      .fallback a {
+        color: #1967d2;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe id="tasks-frame" title="Google Tasks" src="https://tasks.google.com/tasks/"></iframe>
+    <div id="fallback" class="fallback">
+      Unable to embed Google Tasks in the sidebar. Open it in a tab instead:
+      <a href="https://tasks.google.com/tasks/" target="_blank" rel="noopener noreferrer">Google Tasks</a>
+    </div>
+
+    <script src="sidebar.js"></script>
+  </body>
+</html>

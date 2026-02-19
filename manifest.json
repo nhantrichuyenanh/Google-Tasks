@@ -1,0 +1,50 @@
+{
+  "manifest_version": 2,
+  "name": "Google Tasks Sidebar & Tab Launcher",
+  "version": "1.0.0",
+  "description": "Open Google Tasks in the sidebar or in new tabs with shortcuts.",
+  "permissions": [
+    "tabs"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "sidebar_action": {
+    "default_title": "Google Tasks",
+    "default_panel": "sidebar.html"
+  },
+  "page_action": {
+    "default_title": "Google Tasks",
+    "default_popup": "popup.html",
+    "show_matches": [
+      "<all_urls>"
+    ]
+  },
+  "commands": {
+    "open-sidebar": {
+      "suggested_key": {
+        "default": "Ctrl+Alt+G"
+      },
+      "description": "Open Google Tasks in Sidebar"
+    },
+    "open-new-tab": {
+      "suggested_key": {
+        "default": "Ctrl+Alt+N"
+      },
+      "description": "Open Google Tasks in new tab"
+    },
+    "open-background-tab": {
+      "suggested_key": {
+        "default": "Ctrl+Alt+B"
+      },
+      "description": "Open Google Tasks in background tab"
+    }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "google-tasks-sidebar-addon@example.com"
+    }
+  }
+}
