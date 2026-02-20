@@ -10,8 +10,7 @@ async function setSidebarContent() {
     }
 
     let authuser = '';
-    try {
-        // retrieve the stored authuser
+    try { // retrieve the stored authuser
         let res = await browser.storage.local.get('authuser');
         if ('authuser' in res) {
             authuser = encodeURIComponent(res.authuser);

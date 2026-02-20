@@ -72,8 +72,6 @@ browser.storage.onChanged.addListener((changes, areaName) => {
         updateSidebarPanel(currentSidebarContent);
     }
 });
-
-// TODO: somehow rework this func to add Open in sidebar without breaking sidebar functionality
 function toggleSidebar() {
     if (isSidebarOpen) {
         browser.sidebarAction.close();
@@ -134,8 +132,7 @@ browser.storage.onChanged.addListener((changes, areaName) => {
             currentSidebarContent = changes.sidebarContent.newValue;
             updateSidebarPanel(currentSidebarContent);
         }
-        if (changes.showPageAction) {
-            // update all tabs
+        if (changes.showPageAction) { // update all tabs
             browser.tabs.query({}).then(tabs => {
                 for (let tab of tabs) {
                     updatePageActionVisibility(tab.id);

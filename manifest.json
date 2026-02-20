@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Google Tasks",
   "description": "Quickly access and manage Google Tasks.",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "author": "Nhân Trí",
   "homepage_url": "https://github.com/nhantrichuyenanh/Google-Tasks",
   "background": {"scripts": ["background.js"]},
@@ -77,7 +77,8 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "{6733a00c-d723-417d-abe1-4725aa77410f}",
-      "strict_min_version": "109.0"
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {"required": ["none"]}
     }
   }
 }
