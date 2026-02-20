@@ -58,6 +58,17 @@ async function openInNewTab(active = true) {
     }
 }
 
+
+async function shouldOpenInSidebar() {
+    try {
+        const settings = await browser.storage.local.get('openSidebar');
+        return settings.openSidebar !== false;
+    } catch (e) {
+        console.error('Error reading sidebar hotkey setting:', e);
+        return true;
+    }
+}
+
 async function initializeSidebar() {
     const storedContent = await browser.storage.local.get("sidebarContent");
     currentSidebarContent = storedContent.sidebarContent || 'tasks';
@@ -100,7 +111,9 @@ browser.commands.onCommand.addListener(async (command) => {
             await openInNewTab(false);
             break;
         case 'open_sidebar':
-            toggleSidebar();
+            if (await shouldOpenInSidebar()) {
+                toggleSidebar();
+            }
             break;
     }
 });
