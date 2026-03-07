@@ -84,20 +84,20 @@
         }
 
         kbd {
-			background-color: #eeeeee;
-			border-radius: 3px;
-			border: 1px solid #b4b4b4;
-			box-shadow:
-				0 1px 1px rgb(0 0 0 / 0.2),
-				0 2px 0 0 rgb(255 255 255 / 0.7) inset;
-			color: #333333;
-			display: inline-block;
-			font-size: 0.85em;
-			font-weight: bold;
-			line-height: 1;
-			padding: 2px 4px;
-			white-space: nowrap;
-		}
+            background-color: #eeeeee;
+            border-radius: 3px;
+            border: 1px solid #b4b4b4;
+            box-shadow:
+                0 1px 1px rgb(0 0 0 / 0.2),
+                0 2px 0 0 rgb(255 255 255 / 0.7) inset;
+            color: #333333;
+            display: inline-block;
+            font-size: 0.85em;
+            font-weight: bold;
+            line-height: 1;
+            padding: 2px 4px;
+            white-space: nowrap;
+        }
 
         /* DARK MODE */
         @media (prefers-color-scheme: dark) {
@@ -126,66 +126,71 @@
             }
 
             kbd {
-				background-color: #23222b;
-				border-color: #5c5b63;
-				color: #e6e6e9;
-				box-shadow:
-					0 1px 1px rgb(0 0 0 / 0.4),
-					0 2px 0 0 rgb(255 255 255 / 0.08) inset;
-				}
+                background-color: #23222b;
+                border-color: #5c5b63;
+                color: #e6e6e9;
+                box-shadow:
+                    0 1px 1px rgb(0 0 0 / 0.4),
+                    0 2px 0 0 rgb(255 255 255 / 0.08) inset;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- CONTAINER 1 -->
-    <div class="container">
-        <div class="column-title">Open Google Tasks in</div>
+    <!-- Open Google Tasks in -->
+    <section class="container">
+        <h2 class="column-title">Open Google Tasks in</h2>
 
         <div class="columns">
-            <div class="column">
-                <div class="column-title">Sidebar</div>
-                <div class="info">
-                    You can use hotkey <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>G</kbd> to open the sidebar, but you can't disable it.
-                    <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/sidebar_action"
-                        target="_blank" rel="noopener noreferrer" style="color: inherit;">Unfortunately, I can't do anything about it.
-                    </a>
-                </div>
+            <section class="column">
+                <h3 class="column-title">Sidebar</h3>
 
-                <div class="option-item">
+                <p class="option-item">
+                    <label>
+                        <input type="checkbox" id="sidebar-hotkey">
+                        Open in sidebar
+                    </label>
+                </p>
+                <p class="info"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>G</kbd></p>
+
+                <p class="option-item">
                     <label>
                         <input type="checkbox" id="show-page-action">
                         Show address bar button
                     </label>
-                </div>
-            </div>
+                </p>
+            </section>
 
-            <div class="column">
-                <div class="column-title">New Tab</div>
+            <section class="column">
+                <h3 class="column-title">New Tab</h3>
 
-                <div class="option-item">
+                <p class="option-item">
                     <label>
                         <input type="checkbox" id="open-new-tab">
                         Open in new tab
                     </label>
-                </div>
-                <div class="info"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>N</kbd></div>
+                </p>
+                <p class="info"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>N</kbd></p>
 
-                <div class="option-item">
+                <p class="option-item">
                     <label>
                         <input type="checkbox" id="open-background-tab">
                         Open in background
                     </label>
-                </div>
-                <div class="info"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd></div>
-            </div>
+                </p>
+                <p class="info"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd></p>
+            </section>
         </div>
-    </div>
+    </section>
 
-    <!-- CONTAINER 2 -->
-    <div class="container" style="display: flex; padding-top: 10px; padding-bottom: 10px; align-items: center; justify-content: space-between; justify-content: space-between;">
-        <div class="column-title" style="text-align: left; margin-top: 15px;">Open Google Tasks as</div>
+    <!-- Open Google Tasks as -->
+    <section class="container"
+        style="display: flex; padding-top: 10px; padding-bottom: 10px; align-items: center; justify-content: space-between;">
+        <label for="gg-task-selection">
+            <h2 class="column-title" style="text-align: left; margin-top: 15px;">Open Google Tasks as</h2>
+        </label>
 
         <select id="gg-task-selection">
             <option value="tasks">Tasks</option>
@@ -193,7 +198,7 @@
             <option value="embed">Minimized Tasks</option>
             <option value="canvas">Calendar + Minimized Tasks</option>
         </select>
-    </div>
+    </section>
 
     <script src="options.js"></script>
 </body>
