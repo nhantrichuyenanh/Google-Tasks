@@ -7,6 +7,7 @@ const openBackgroundTabCheckbox = document.getElementById(
 	"open-background-tab",
 );
 const sidebarHotkeyCheckbox = document.getElementById("sidebar-hotkey");
+const showToolbarButtonCheckbox = document.getElementById("show-toolbar-button");
 
 function saveOptions() {
 	browser.storage.local.set({
@@ -14,6 +15,7 @@ function saveOptions() {
 		showPageAction: showPageActionCheckbox.checked,
 		openNewTab: openNewTabCheckbox.checked,
 		openBackgroundTab: openBackgroundTabCheckbox.checked,
+		showToolbarButton: showToolbarButtonCheckbox.checked,
 	});
 }
 
@@ -35,6 +37,7 @@ function updateUI(res) {
 	openNewTabCheckbox.checked = res.openNewTab !== false;
 	openBackgroundTabCheckbox.checked = res.openBackgroundTab !== false;
 	sidebarHotkeyCheckbox.checked = res.sidebarHotkeyEnabled === true;
+	showToolbarButtonCheckbox.checked = res.showToolbarButton !== false;
 }
 
 function restoreOptions() {
@@ -45,10 +48,12 @@ function restoreOptions() {
 			"openNewTab",
 			"openBackgroundTab",
 			"sidebarHotkeyEnabled",
+			"showToolbarButton",
 		])
 		.then(updateUI)
 		.catch((error) => {});
 }
+
 
 ggTaskSelection.addEventListener("change", saveOptions);
 showPageActionCheckbox.addEventListener("change", saveOptions);
@@ -57,5 +62,6 @@ openBackgroundTabCheckbox.addEventListener("change", saveOptions);
 sidebarHotkeyCheckbox.addEventListener("change", () =>
 	setSidebarHotkey(sidebarHotkeyCheckbox.checked),
 );
+showToolbarButtonCheckbox.addEventListener("change", saveOptions);
 
 document.addEventListener("DOMContentLoaded", restoreOptions);

@@ -23,14 +23,12 @@
             width: 100%;
             max-width: 500px;
             text-align: left;
-
             margin: 0 auto 20px auto;
         }
 
         .columns {
             display: flex;
             gap: 24px;
-            margin-bottom: 24px;
         }
 
         .column {
@@ -40,6 +38,7 @@
         .column-title {
             font-size: 1.1rem;
             font-weight: 600;
+            margin-top: 0;
             margin-bottom: 12px;
             text-align: center;
             color: #15141a;
@@ -159,6 +158,13 @@
                     <label>
                         <input type="checkbox" id="show-page-action">
                         Show address bar button
+                    </label>
+                </p>
+
+                <p class="option-item">
+                    <label>
+                        <input type="checkbox" id="show-toolbar-button">
+                        Enable toolbar button
                     </label>
                 </p>
             </section>

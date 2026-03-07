@@ -20,19 +20,6 @@ function generateUrl(content, authuser = "") {
 	}
 }
 
-async function updateSidebarPanel(content) {
-	let authuser = "";
-	try {
-		let res = await browser.storage.local.get("authuser");
-		if ("authuser" in res) {
-			authuser = res.authuser;
-		}
-	} catch (e) {}
-
-	const panelUrl = generateUrl(content, authuser);
-	browser.sidebarAction.setPanel({ panel: panelUrl });
-}
-
 async function openInNewTab(active = true) {
 	try {
 		const settings = await browser.storage.local.get([
@@ -56,12 +43,36 @@ async function openInNewTab(active = true) {
 	} catch (e) {}
 }
 
+async function updateToolbarButtonVisibility() {
+	const res = await browser.storage.local.get("showToolbarButton");
+	if (res.showToolbarButton === false) {
+		browser.action.disable();
+	} else {
+		browser.action.enable();
+	}
+}
+
+async function updateSidebarPanel(content) {
+	let authuser = "";
+	try {
+		let res = await browser.storage.local.get("authuser");
+		if ("authuser" in res) {
+			authuser = res.authuser;
+		}
+	} catch (e) {}
+
+	const panelUrl = generateUrl(content, authuser);
+	browser.sidebarAction.setPanel({ panel: panelUrl });
+}
+
 async function initializeSidebar() {
 	const storedContent = await browser.storage.local.get("sidebarContent");
 	currentSidebarContent = storedContent.sidebarContent || "tasks";
 	updateSidebarPanel(currentSidebarContent);
 }
+
 initializeSidebar();
+updateToolbarButtonVisibility();
 
 async function restoreSidebarHotkey() {
 	try {
@@ -146,6 +157,9 @@ browser.storage.onChanged.addListener((changes, areaName) => {
 					updatePageActionVisibility(tab.id);
 				}
 			});
+		}
+		if (changes.showToolbarButton) {
+			updateToolbarButtonVisibility();
 		}
 	}
 });
